@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:kuis_mobile/models/destinationModels.dart';
 import 'package:kuis_mobile/theme/appColors.dart';
 
-class Destinationdetail extends StatelessWidget {
+class Destinationdetail extends StatefulWidget {
   final DestinationModel destination; 
 
   const Destinationdetail({
     super.key, 
-    required this.destination, 
+    required this.destination,  
   });
+
+  @override
+  State<Destinationdetail> createState() => _DestinationdetailState();
+}
+
+class _DestinationdetailState extends State<Destinationdetail> {
+  bool _selected = false;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +25,7 @@ class Destinationdetail extends StatelessWidget {
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.secondary,
-        title: Text(destination.name, 
+        title: Text(widget.destination.name, 
             style: TextStyle(
               color: AppColors.background, 
           ),
@@ -28,7 +37,7 @@ class Destinationdetail extends StatelessWidget {
           padding: EdgeInsetsGeometry.all(32), 
           child: Column(
             children: [
-              Image.network(destination.imageUrl, width: 100, height: 100,
+              Image.network(widget.destination.imageUrl, width: 100, height: 100,
               errorBuilder: (context, error, stackTrace) {
                 return const Icon(
                   Icons.broken_image,
@@ -38,7 +47,7 @@ class Destinationdetail extends StatelessWidget {
               ),
 
               Text(
-                destination.name, 
+                widget.destination.name, 
                 style: TextStyle(
                   fontSize: 16, 
                   color: AppColors.textPrimary, 
@@ -47,7 +56,30 @@ class Destinationdetail extends StatelessWidget {
               ),
 
               SizedBox(height: 16), 
-              
+
+              Text(
+                "Favorite", 
+                style: TextStyle(
+                  fontSize: 16, 
+                  color: AppColors.textPrimary, 
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              IconButton(
+                isSelected: _selected,
+                onPressed: (){
+                  setState(() {
+                    _selected = true;
+                  }); 
+
+                }, 
+                icon: Icon(Icons.favorite),
+                focusColor: AppColors.primary,
+                // color: AppColors.primary, 
+              ),
+
+
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.all(16),
@@ -66,7 +98,7 @@ class Destinationdetail extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            destination.category,
+                            widget.destination.category,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 14, 
@@ -94,7 +126,7 @@ class Destinationdetail extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                            Text(
-                            destination.location,
+                            widget.destination.location,
                             textAlign: TextAlign.center, 
                             style: TextStyle(
                               fontSize: 14, 
@@ -120,7 +152,7 @@ class Destinationdetail extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            destination.openingHours,
+                            widget.destination.openingHours,
                             textAlign: TextAlign.center, 
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -157,7 +189,7 @@ class Destinationdetail extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 8), 
-              Text(destination.description),
+              Text(widget.destination.description),
 
               SizedBox(height: 16),
 
@@ -188,7 +220,7 @@ class Destinationdetail extends StatelessWidget {
                           ),
                           const SizedBox(width: 4), 
                           Text(
-                            destination.ticketInfo,
+                            widget.destination.ticketInfo,
                             textAlign: TextAlign.justify,
                             style: TextStyle(
                               fontSize: 12, 
@@ -216,7 +248,7 @@ class Destinationdetail extends StatelessWidget {
                           ),
                           const SizedBox(width: 4), 
                           Text(
-                            destination.attraction,
+                            widget.destination.attraction,
                             textAlign: TextAlign.justify,
                             style: TextStyle(
                               fontSize: 12, 
