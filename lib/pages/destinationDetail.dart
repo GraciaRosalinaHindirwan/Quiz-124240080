@@ -17,6 +17,16 @@ class Destinationdetail extends StatefulWidget {
 
 class _DestinationdetailState extends State<Destinationdetail> {
   bool _selected = false;
+
+  void favorite(){
+    if(_selected == true){
+      IconButton(
+        onPressed: (){}, 
+        icon: Icon(Icons.favorite), 
+        focusColor: AppColors.primary,
+      ); 
+    }
+  }
   
 
   @override
@@ -71,11 +81,12 @@ class _DestinationdetailState extends State<Destinationdetail> {
                 onPressed: (){
                   setState(() {
                     _selected = true;
-                  }); 
+                  });
+
+                  favorite();  
 
                 }, 
                 icon: Icon(Icons.favorite),
-                focusColor: AppColors.primary,
                 // color: AppColors.primary, 
               ),
 
